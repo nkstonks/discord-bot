@@ -1,10 +1,8 @@
-import os
 import discord
 import json
 import keep_alive
 from textwrap import dedent
 from discord.ext import commands, tasks
-import schedule
 import random
 
 def load_creds():
