@@ -1,18 +1,9 @@
 import discord
-import json
+from os import getenv
 import keep_alive
 from textwrap import dedent
 from discord.ext import commands, tasks
 import random
-
-def load_creds():
-    """Loads credidentials for discord bot"""
-
-    with open("cred.json") as creds:
-        return json.load(creds)
-
-secret_things = load_creds()
-token = secret_things["DISCORD_TOKEN"]
 
 bot = commands.Bot(command_prefix="c.", help_command=None)
 
@@ -101,5 +92,7 @@ async def before():
 
 remind.start()
 keep_alive.keep_alive()
+
+token = getenv(DISCORD_TOKEN)
 
 bot.run(token)
