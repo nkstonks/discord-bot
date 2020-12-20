@@ -1,5 +1,6 @@
 import discord
-from os import getenv
+import os
+from dotenv import load_dotenv
 import keep_alive
 from textwrap import dedent
 from discord.ext import commands, tasks
@@ -21,16 +22,15 @@ async def on_ready():
 async def help(ctx):
     """Gives the list of commands"""
 
-    response = dedent("""
-    ```
-    Current list of commands:
-    \thelp:       runs this command
-    \tnsfw-off:   toggles nsfw content off
-    \tnsfw-on:    toggles nsfw content on
-    ```
-    """)
+    help = discord.Embed(title="List of commands", description=
+    """
+        Current list of commands:
+        help:       runs this command
+        nsfw-off:   toggles nsfw content off
+        nsfw-on:    toggles nsfw content on
+    """, color=discord.Color.blue())
 
-    await ctx.send(response)
+    await ctx.send(embed=help)
 
 
 @bot.command(name="nsfw-off")
@@ -94,6 +94,7 @@ async def before():
 remind.start()
 keep_alive.keep_alive()
 
-token = getenv("DISCORD_TOKEN")
+load_dotenv()
+token = os.getenv("DISCORD_TOKEN")
 
 bot.run(token)
